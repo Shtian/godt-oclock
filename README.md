@@ -17,3 +17,7 @@ vp build       # produksjonsbygg til dist/
 ## Deploy
 
 Vercel oppdager Vite-oppsettet automatisk: byggkommando `pnpm build`, output-mappe `dist`.
+
+## Installer på iPhone
+
+Åpne siden i Safari → Del → **Legg til på Hjem-skjerm**. Appen åpnes da i fullskjerm og fungerer uten nett: byggingen lager `sw.js` (se `pwa/sw.js` og pluginen i `vite.config.ts`) som lagrer alle filene lokalt ved første besøk.
