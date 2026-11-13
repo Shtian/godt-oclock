@@ -6,6 +6,8 @@ import {
   addDays,
   DEFAULT_MINUTE,
   atTime,
+  capitalize,
+  LOCALE,
   dayLabel,
   dayOptions,
   isSameDay,
@@ -28,12 +30,12 @@ const QUICK_TIMES: [number, number][] = [
 const STEPS: Step[] = ["day", "time", "result"];
 
 function formatTarget(date: Date): string {
-  const day = date.toLocaleDateString(undefined, {
+  const day = date.toLocaleDateString(LOCALE, {
     weekday: "long",
     day: "numeric",
     month: "short",
   });
-  return `${day} at ${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
+  return `${day} kl. ${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
 }
 
 export default function App() {
@@ -73,15 +75,15 @@ export default function App() {
             type="button"
             className="back"
             onClick={() => setStep(step === "result" ? "time" : "day")}
-            aria-label="Back"
+            aria-label="Tilbake"
           >
             ‹
           </button>
         ) : (
           <span className="back-spacer" />
         )}
-        <h1>Candy Timer</h1>
-        <ol className="dots" aria-label={`Step ${STEPS.indexOf(step) + 1} of 3`}>
+        <h1>Godt o'clock</h1>
+        <ol className="dots" aria-label={`Steg ${STEPS.indexOf(step) + 1} av 3`}>
           {STEPS.map((s) => (
             <li key={s} className={s === step ? "active" : ""} />
           ))}
@@ -90,14 +92,14 @@ export default function App() {
 
       {step === "day" && (
         <section className="step">
-          <h2>When should it unlock?</h2>
+          <h2>Når skal glasset åpnes?</h2>
           <button type="button" className="hero-choice" onClick={useDefault}>
-            <span className="hero-label">Usual time</span>
-            <span className="hero-value">{formatTarget(defaultTarget)}</span>
-            <span className="hero-go">Show countdown →</span>
+            <span className="hero-label">Vanlig tid</span>
+            <span className="hero-value">{capitalize(formatTarget(defaultTarget))}</span>
+            <span className="hero-go">Vis nedtelling →</span>
           </button>
 
-          <p className="or">or pick a day</p>
+          <p className="or">eller velg en dag</p>
           <div className="day-grid">
             {days.map((d) => (
               <button
@@ -108,7 +110,7 @@ export default function App() {
               >
                 <span className="chip-main">{dayLabel(d, opened)}</span>
                 <span className="chip-sub">
-                  {d.toLocaleDateString(undefined, { day: "numeric", month: "short" })}
+                  {d.toLocaleDateString(LOCALE, { day: "numeric", month: "short" })}
                 </span>
               </button>
             ))}
@@ -119,30 +121,30 @@ export default function App() {
       {step === "time" && (
         <section className="step">
           <h2>
-            What time{" "}
+            Hvilken tid{" "}
             {isSameDay(day, opened) || isSameDay(day, addDays(startOfDay(opened), 1))
               ? dayLabel(day, opened).toLowerCase()
-              : `on ${dayLabel(day, opened)}`}
+              : `på ${dayLabel(day, opened).toLowerCase()}`}
             ?
           </h2>
 
           <div className="time-picker">
             <div className="spinner">
-              <button type="button" onClick={() => stepHour(1)} aria-label="Hour up">
+              <button type="button" onClick={() => stepHour(1)} aria-label="Time opp">
                 ▲
               </button>
-              <output aria-label="Hour">{pad2(hour)}</output>
-              <button type="button" onClick={() => stepHour(-1)} aria-label="Hour down">
+              <output aria-label="Time">{pad2(hour)}</output>
+              <button type="button" onClick={() => stepHour(-1)} aria-label="Time ned">
                 ▼
               </button>
             </div>
             <span className="colon">:</span>
             <div className="spinner">
-              <button type="button" onClick={() => stepMinute(15)} aria-label="Minutes up">
+              <button type="button" onClick={() => stepMinute(15)} aria-label="Minutter opp">
                 ▲
               </button>
-              <output aria-label="Minutes">{pad2(minute)}</output>
-              <button type="button" onClick={() => stepMinute(-15)} aria-label="Minutes down">
+              <output aria-label="Minutter">{pad2(minute)}</output>
+              <button type="button" onClick={() => stepMinute(-15)} aria-label="Minutter ned">
                 ▼
               </button>
             </div>
@@ -164,7 +166,7 @@ export default function App() {
             ))}
           </div>
 
-          {inPast && <p className="warn">That time has already passed — pick a later one.</p>}
+          {inPast && <p className="warn">Det tidspunktet har allerede vært – velg et senere.</p>}
 
           <button
             type="button"
@@ -172,24 +174,24 @@ export default function App() {
             disabled={inPast}
             onClick={() => setStep("result")}
           >
-            Show countdown
+            Vis nedtelling
           </button>
         </section>
       )}
 
       {step === "result" && (
         <section className="step result">
-          <h2>Set the jar to</h2>
+          <h2>Still inn glasset på</h2>
           <JarDisplay target={target} />
           <p className="unlocks">
-            Unlocks <strong>{formatTarget(target)}</strong>
+            Åpnes <strong>{formatTarget(target)}</strong>
           </p>
           <div className="actions">
             <button type="button" className="secondary" onClick={() => setStep("time")}>
-              Change time
+              Endre tid
             </button>
             <button type="button" className="secondary" onClick={() => setStep("day")}>
-              Start over
+              Start på nytt
             </button>
           </div>
         </section>

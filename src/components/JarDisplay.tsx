@@ -16,19 +16,19 @@ export function JarDisplay({ target }: JarDisplayProps) {
       <div
         className="lcd"
         role="timer"
-        aria-label={`${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`}
+        aria-label={`${days} dager, ${hours} timer, ${minutes} minutter, ${seconds} sekunder`}
       >
         <div className="lcd-row lcd-top">
           <span className="battery" aria-hidden="true" />
           <span className="lcd-group">
             <SevenSegment value={String(days)} className="big" />
-            <span className="unit">Days</span>
+            <span className="unit">Dager</span>
           </span>
         </div>
         <div className="lcd-row">
           <span className="lcd-group">
             <SevenSegment value={pad2(hours)} />
-            <span className="unit">Hrs</span>
+            <span className="unit">Timer</span>
           </span>
           <span className="lcd-group">
             <SevenSegment value={pad2(minutes)} />
@@ -36,7 +36,7 @@ export function JarDisplay({ target }: JarDisplayProps) {
           </span>
           <span className="lcd-group">
             <SevenSegment value={pad2(seconds)} />
-            <span className="unit">Sec</span>
+            <span className="unit">Sek</span>
           </span>
         </div>
       </div>

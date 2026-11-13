@@ -1,19 +1,19 @@
-# Candy Timer
+# Godt o'clock
 
-A mobile-first helper for time-locked candy jars. Pick when the jar should unlock (default: the next **Friday at 14:00**), and it shows the days / hours / minutes / seconds to enter on the jar, in an LCD display that looks like the jar lid.
+En mobilvennlig hjelper for godteglass med tidslås. Velg når glasset skal åpnes (standard: neste **fredag kl. 14:00**), så viser appen dager / timer / minutter / sekunder du skal stille inn på glasset, i et LCD-display som ligner lokket.
 
-## Development
+## Utvikling
 
-Built with [Vite+](https://viteplus.dev) (`vp`), React and TypeScript.
+Bygget med [Vite+](https://viteplus.dev) (`vp`), React og TypeScript.
 
 ```sh
-vp install     # install dependencies
-vp dev         # start the dev server
-vp check       # format, lint, type check
-vp test        # run unit tests
-vp build       # production build to dist/
+vp install     # installer avhengigheter
+vp dev         # start utviklingsserver
+vp check       # formatering, lint, typesjekk
+vp test        # kjør enhetstester
+vp build       # produksjonsbygg til dist/
 ```
 
 ## Deploy
 
-Vercel auto-detects the Vite setup: build command `pnpm build`, output directory `dist`.
+Vercel oppdager Vite-oppsettet automatisk: byggkommando `pnpm build`, output-mappe `dist`.

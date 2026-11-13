@@ -66,9 +66,16 @@ export function isSameDay(a: Date, b: Date): boolean {
 
 export function dayLabel(day: Date, now: Date): string {
   const today = startOfDay(now);
-  if (isSameDay(day, today)) return "Today";
-  if (isSameDay(day, addDays(today, 1))) return "Tomorrow";
-  return day.toLocaleDateString(undefined, { weekday: "long" });
+  if (isSameDay(day, today)) return "I dag";
+  if (isSameDay(day, addDays(today, 1))) return "I morgen";
+  return capitalize(day.toLocaleDateString(LOCALE, { weekday: "long" }));
+}
+
+/** Norwegian bokmål; date names come out lowercase ("fredag"). */
+export const LOCALE = "nb-NO";
+
+export function capitalize(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 export function pad2(n: number): string {
