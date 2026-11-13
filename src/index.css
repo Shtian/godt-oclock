@@ -245,12 +245,12 @@ button {
   right: -8px;
   width: 26px;
   height: 26px;
-  border: 2px solid var(--bg);
+  border: 2px solid var(--outline);
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: var(--candy-ink);
-  color: #fff;
+  background: var(--pop);
+  color: var(--candy-ink);
   font-size: 0.85rem;
   font-weight: 700;
 }
