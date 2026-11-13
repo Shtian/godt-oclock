@@ -318,7 +318,7 @@ button {
 /* Jar lid + LCD */
 .lid {
   position: relative;
-  margin-top: 36px;
+  margin-top: 12px;
   padding: 26px 18px 30px;
   border-radius: 28px;
   background: linear-gradient(180deg, #ffffff 0%, #f1f2f2 70%, #e3e5e6 100%);
@@ -327,20 +327,6 @@ button {
     0 -2px 0 rgba(0, 0, 0, 0.05) inset,
     0 14px 30px rgba(0, 0, 0, 0.12),
     0 2px 4px rgba(0, 0, 0, 0.08);
-}
-
-.lid-button {
-  position: absolute;
-  left: 50%;
-  top: -26px;
-  width: 42%;
-  aspect-ratio: 2.4;
-  transform: translateX(-50%);
-  border-radius: 50% / 45%;
-  background: linear-gradient(180deg, #ffffff 0%, #eceeee 100%);
-  box-shadow:
-    0 2px 0 #fff inset,
-    0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
 .lid-latch {

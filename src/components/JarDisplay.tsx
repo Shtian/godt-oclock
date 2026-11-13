@@ -13,7 +13,6 @@ export function JarDisplay({ target }: JarDisplayProps) {
 
   return (
     <div className="lid">
-      <div className="lid-button" aria-hidden="true" />
       <div
         className="lcd"
         role="timer"
