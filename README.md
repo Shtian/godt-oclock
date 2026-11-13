@@ -1,6 +1,6 @@
 # Godt o'clock
 
-En mobilvennlig hjelper for godteglass med tidslås. Velg når glasset skal åpnes (standard: neste **fredag kl. 14:00**), så viser appen dager / timer / minutter / sekunder du skal stille inn på glasset, i et LCD-display som ligner lokket.
+En mobilvennlig hjelper for godteboks med tidslås. Velg når boksen skal åpnes (standard: neste **fredag kl. 14:00**), så viser appen dager / timer / minutter / sekunder du skal stille inn på boksen, i et LCD-display som ligner lokket.
 
 ## Utvikling
 

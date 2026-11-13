@@ -92,7 +92,7 @@ export default function App() {
 
       {step === "day" && (
         <section className="step">
-          <h2>Når skal glasset åpnes?</h2>
+          <h2>Når skal boksen åpnes?</h2>
           <button type="button" className="hero-choice" onClick={useDefault}>
             <span className="hero-label">Vanlig tid</span>
             <span className="hero-value">{capitalize(formatTarget(defaultTarget))}</span>
@@ -181,7 +181,7 @@ export default function App() {
 
       {step === "result" && (
         <section className="step result">
-          <h2>Still inn glasset på</h2>
+          <h2>Still inn boksen på</h2>
           <JarDisplay target={target} />
           <p className="unlocks">
             Åpnes <strong>{formatTarget(target)}</strong>
