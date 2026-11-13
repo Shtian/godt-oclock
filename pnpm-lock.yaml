@@ -178,6 +178,12 @@ importers:
 
   .:
     dependencies:
+      '@fontsource-variable/fredoka':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource/bagel-fat-one':
+        specifier: ^5.3.0
+        version: 5.3.0
       react:
         specifier: ^19.3.1
         version: 19.3.1
@@ -223,6 +229,12 @@ packages:
 
   '@blazediff/core@1.10.0':
     resolution: {integrity: sha512-AOQff0zgR7cGsZL+4E7hVkmujoPUpm0J9xzWGWZj5wCjd3gmxESXAPfKyuzs93VdpQNFhHlBhfOjrcZ+XTERtQ==}
+
+  '@fontsource-variable/fredoka@5.3.0':
+    resolution: {integrity: sha512-13w98iw2RcmYfZQRZPLSu+0YJK3HHm5A2XrpU26moFIAePmfiKfvkmEJUgkc8r5GNR+pbDijOueS1KdGAMAWmQ==}
+
+  '@fontsource/bagel-fat-one@5.3.0':
+    resolution: {integrity: sha512-rT3HoY0O7+rfK8WA4ddkIc+6ushm/yjbdoc5l7jo58Si6S2XPUae8whLdLqFcrcXF9DGLaxin9FNAUaAKX5N+A==}
 
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
@@ -1293,6 +1305,10 @@ snapshots:
   '@babel/runtime@7.29.14': {}
 
   '@blazediff/core@1.10.0': {}
+
+  '@fontsource-variable/fredoka@5.3.0': {}
+
+  '@fontsource/bagel-fat-one@5.3.0': {}
 
   '@jridgewell/resolve-uri@3.1.2': {}
 

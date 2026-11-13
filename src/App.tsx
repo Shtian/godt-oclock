@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { JarDisplay } from "./components/JarDisplay";
 import { useNow } from "./hooks/useNow";
 import {
@@ -29,6 +29,10 @@ const QUICK_TIMES: [number, number][] = [
 
 const STEPS: Step[] = ["day", "time", "result"];
 
+/** Each chip gets its own candy colour, cycling through the bag. */
+const CANDY = ["mint", "lemon", "lavender", "peach", "sky", "rose"] as const;
+const candy = (i: number) => `candy-${CANDY[i % CANDY.length]}`;
+
 function formatTarget(date: Date): string {
   const day = date.toLocaleDateString(LOCALE, {
     weekday: "long",
@@ -46,6 +50,17 @@ export default function App() {
   const [day, setDay] = useState<Date>(() => startOfDay(defaultTarget));
   const [hour, setHour] = useState(DEFAULT_HOUR);
   const [minute, setMinute] = useState(DEFAULT_MINUTE);
+
+  // Move focus to the new step's heading so keyboard and screen reader users follow along.
+  const heading = useRef<HTMLHeadingElement>(null);
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    heading.current?.focus();
+  }, [step]);
 
   const target = atTime(day, hour, minute);
   const now = useNow();
@@ -80,32 +95,35 @@ export default function App() {
             ‹
           </button>
         ) : (
-          <span className="back-spacer" />
+          <span className="back-spacer" aria-hidden="true" />
         )}
         <h1>Godt o'clock</h1>
-        <ol className="dots" aria-label={`Steg ${STEPS.indexOf(step) + 1} av 3`}>
+        <p className="dots">
+          <span className="sr-only">{`Steg ${STEPS.indexOf(step) + 1} av 3`}</span>
           {STEPS.map((s) => (
-            <li key={s} className={s === step ? "active" : ""} />
+            <span key={s} className={s === step ? "dot active" : "dot"} aria-hidden="true" />
           ))}
-        </ol>
+        </p>
       </header>
 
       {step === "day" && (
         <section className="step">
-          <h2>Når skal boksen åpnes?</h2>
+          <h2 ref={heading} tabIndex={-1}>
+            Når skal boksen åpnes?
+          </h2>
           <button type="button" className="hero-choice" onClick={useDefault}>
-            <span className="hero-label">Vanlig tid</span>
             <span className="hero-value">{capitalize(formatTarget(defaultTarget))}</span>
-            <span className="hero-go">Vis nedtelling →</span>
+            <span className="hero-go">Bruk vanlig tid →</span>
           </button>
 
           <p className="or">eller velg en dag</p>
           <div className="day-grid">
-            {days.map((d) => (
+            {days.map((d, i) => (
               <button
                 type="button"
                 key={d.toISOString()}
-                className={`chip day-chip ${isSameDay(d, day) ? "selected" : ""}`}
+                className={`chip day-chip ${candy(i)}`}
+                aria-pressed={isSameDay(d, day)}
                 onClick={() => pickDay(d)}
               >
                 <span className="chip-main">{dayLabel(d, opened)}</span>
@@ -120,7 +138,7 @@ export default function App() {
 
       {step === "time" && (
         <section className="step">
-          <h2>
+          <h2 ref={heading} tabIndex={-1}>
             Hvilken tid{" "}
             {isSameDay(day, opened) || isSameDay(day, addDays(startOfDay(opened), 1))
               ? dayLabel(day, opened).toLowerCase()
@@ -151,11 +169,12 @@ export default function App() {
           </div>
 
           <div className="quick-times">
-            {QUICK_TIMES.map(([h, m]) => (
+            {QUICK_TIMES.map(([h, m], i) => (
               <button
                 type="button"
                 key={`${h}:${m}`}
-                className={`chip ${h === hour && m === minute ? "selected" : ""}`}
+                className={`chip ${candy(i + 2)}`}
+                aria-pressed={h === hour && m === minute}
                 onClick={() => {
                   setHour(h);
                   setMinute(m);
@@ -166,7 +185,9 @@ export default function App() {
             ))}
           </div>
 
-          {inPast && <p className="warn">Det tidspunktet har allerede vært – velg et senere.</p>}
+          <p className="warn" aria-live="polite">
+            {inPast ? "Det tidspunktet har allerede vært. Velg et senere." : ""}
+          </p>
 
           <button
             type="button"
@@ -181,7 +202,9 @@ export default function App() {
 
       {step === "result" && (
         <section className="step result">
-          <h2>Still inn boksen på</h2>
+          <h2 ref={heading} tabIndex={-1}>
+            Still inn boksen på
+          </h2>
           <JarDisplay target={target} />
           <p className="unlocks">
             Åpnes <strong>{formatTarget(target)}</strong>
